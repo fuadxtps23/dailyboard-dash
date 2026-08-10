@@ -1,0 +1,190 @@
+/*
+  DailyBoard — style khusus proyek
+  Bawaan/contekan desain berasal dari matdesign3.css (Material Design 3).
+  File ini hanya berisi penyesuaian tata letak, dark mode, drag & drop,
+  dan responsivitas (Fase 5 & 6).
+*/
+
+/* ===== Layout utama (Fase 1) ===== */
+main#app {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-content: start;
+  padding: 1rem;
+  width: 100%;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 0.0625rem solid var(--outline-variant, rgba(0, 0, 0, 0.12));
+  background-color: var(--surface, #fdf8fd);
+}
+
+footer {
+  padding: 1rem;
+  text-align: center;
+  color: var(--on-surface-variant, #49454e);
+}
+
+#status {
+  color: var(--on-surface-variant, #49454e);
+  font-style: italic;
+}
+
+/* ===== Daftar tugas & form (Fase 2 & 3) ===== */
+#tugas input[type="text"],
+#tugas input[type="search"],
+#catatan textarea,
+#cuaca input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 0.0625rem solid var(--outline-variant, rgba(0, 0, 0, 0.12));
+  border-radius: 999px;
+  background-color: var(--surface-container-highest, #e6e1e6);
+  color: var(--on-surface, #1c1b1e);
+  box-sizing: border-box;
+}
+
+#tugas textarea {
+  border-radius: 1rem;
+  resize: vertical;
+  min-height: 6rem;
+}
+
+#tugas > button,
+#form-catatan > button,
+#cuaca > button,
+#filter-container > button,
+.catatan-item > button {
+  margin-block-start: 0.5rem;
+  margin-block-end: 0.5rem;
+}
+
+#kotak-cari {
+  margin-block: 0.75rem;
+}
+
+#filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: 0.75rem;
+}
+
+#filter-container > button.active {
+  background-color: var(--secondary-container, #e8def8);
+  color: var(--on-secondary-container, #1e192b);
+}
+
+/* Item tugas: bungkus teks panjang & beri ruang tombol (Minggu 5, 13) */
+.list > li.tugas-item {
+  white-space: normal;
+  word-break: break-word;
+  gap: 0.75rem;
+}
+
+.tugas-item .max {
+  flex: 1;
+  min-width: 0;
+}
+
+.list > li.tugas-item.selesai {
+  background-color: var(--surface-container, #f2ecf1);
+}
+
+/* ===== Drag & Drop (Fase 5, Minggu 13) ===== */
+.drag-handle {
+  color: var(--on-surface-variant, #49454e);
+  cursor: grab;
+  user-select: none;
+}
+
+.tugas-item.menyeret {
+  opacity: 0.4;
+}
+
+.tugas-item.tujuan-drop {
+  background-color: var(--secondary-container, #e8def8);
+}
+
+/* ===== Catatan (Fase 3, Minggu 8 & 9) ===== */
+#daftar-catatan {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-block-start: 1rem;
+}
+
+.catatan-item {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  border: 0.0625rem solid var(--outline-variant, rgba(0, 0, 0, 0.12));
+  background-color: var(--surface-container, #f2ecf1);
+}
+
+.catatan-item p {
+  margin: 0;
+  word-break: break-word;
+}
+
+.catatan-item small {
+  color: var(--on-surface-variant, #49454e);
+}
+
+/* ===== Kutipan (Fase 4, Minggu 10) ===== */
+#kutipan-harian {
+  margin: 0;
+  padding-inline-start: 1rem;
+  border-inline-start: 0.25rem solid var(--primary, #6750a4);
+  color: var(--on-surface-variant, #49454e);
+}
+
+/* ===== Responsivitas mobile (Fase 6, Minggu 16) ===== */
+@media (max-width: 599px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header h1 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 700px) {
+  main#app {
+    grid-template-columns: 1fr 1fr;
+    max-width: 75rem;
+    margin: 0 auto;
+  }
+
+  main#app > .surface-container-low {
+    align-self: start;
+  }
+
+  main#app > section#cuaca,
+  main#app > div#kutipan-container,
+  main#app > p#status {
+    grid-column: 1 / -1;
+  }
+
+  #daftar-catatan {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1100px) {
+  #daftar-catatan {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
