@@ -20,6 +20,7 @@ import {
   renderCatatan,
 } from "./catatan.js";
 import { muatSemuaWidget, ambilCuaca } from "./api.js";
+import { simpanTema, bacaTema } from "./storage.js";
 
 const app = document.getElementById("app");
 
@@ -249,10 +250,10 @@ function terapkanTema(tema) {
 document.getElementById("toggle-tema").addEventListener("click", () => {
   const gelap = document.body.classList.contains("dark");
   if (gelap) {
-    localStorage.setItem("tema", "terang");
+    simpanTema("terang");
     terapkanTema("terang");
   } else {
-    localStorage.setItem("tema", "gelap");
+    simpanTema("gelap");
     terapkanTema("gelap");
   }
 });
@@ -266,6 +267,6 @@ window.addEventListener("DOMContentLoaded", () => {
   renderCatatan(); // tampilkan catatan
   muatSemuaWidget(); // muat kutipan + cuaca
   // Terapkan tema yang tersimpan (default terang)
-  const temaTersimpan = localStorage.getItem("tema");
+  const temaTersimpan = bacaTema();
   terapkanTema(temaTersimpan === "gelap" ? "gelap" : "terang");
 });

@@ -1,20 +1,21 @@
 // ============================================
 // MODUL CATATAN
 // Semua fungsi untuk mengelola catatan cepat.
-// Data catatan juga disimpan di localStorage.
+// Penyimpanan data memakai modul storage.js.
 // ============================================
+
+import { simpanCatatan, bacaCatatan } from "./storage.js";
 
 let daftarCatatan = []; // semua catatan
 
 // Membaca catatan dari localStorage
 export function muatCatatanDariStorage() {
-  const data = localStorage.getItem("daftarCatatan");
-  daftarCatatan = data ? JSON.parse(data) : [];
-}
-
-// Menyimpan catatan ke localStorage
-function simpanCatatanKeStorage() {
-  localStorage.setItem("daftarCatatan", JSON.stringify(daftarCatatan));
+  const data = bacaCatatan();
+  if (data) {
+    daftarCatatan = data;
+  } else {
+    daftarCatatan = [];
+  }
 }
 
 // Menambah catatan baru
@@ -24,7 +25,7 @@ export function tambahCatatan(isi) {
     isi,
     tanggal: new Date().toLocaleDateString("id-ID"),
   });
-  simpanCatatanKeStorage();
+  simpanCatatan(daftarCatatan);
   renderCatatan();
 }
 
@@ -33,14 +34,14 @@ export function editCatatan(id, isiBaru) {
   daftarCatatan = daftarCatatan.map((c) =>
     Number(c.id) === Number(id) ? { ...c, isi: isiBaru } : c
   );
-  simpanCatatanKeStorage();
+  simpanCatatan(daftarCatatan);
   renderCatatan();
 }
 
 // Menghapus catatan berdasarkan id
 export function hapusCatatan(id) {
   daftarCatatan = daftarCatatan.filter((c) => Number(c.id) !== Number(id));
-  simpanCatatanKeStorage();
+  simpanCatatan(daftarCatatan);
   renderCatatan();
 }
 

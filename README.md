@@ -56,16 +56,17 @@ dailyboard/
 ├── matdesign3.css  # Tema Material Design 3 (diunduh/disalin)
 ├── style.css       # Penyesuaian layout, drag & drop, dark mode, responsivitas
 ├── script.js       # Entry point (membangun UI, event, Fase 5/6)
-├── tugas.js        # Modul manajemen tugas (CRUD, filter, drag-drop, storage)
-├── catatan.js      # Modul catatan cepat (CRUD, storage)
+├── tugas.js        # Modul manajemen tugas (CRUD, filter, drag-drop)
+├── catatan.js      # Modul catatan cepat (CRUD)
 ├── api.js          # Modul API (kutipan, cuaca, Promise.all)
+├── storage.js      # Modul penyimpanan localStorage (tugas, catatan, tema)
 └── README.md       # Dokumentasi ini
 ```
 
 ## Teknologi
 
 - HTML5 + CSS3 (Material Design 3 via `matdesign3.css`)
-- JavaScript murni/vanilla (ES Modules: `script.js`, `tugas.js`, `catatan.js`, `api.js`)
+- JavaScript murni/vanilla (ES Modules: `script.js`, `tugas.js`, `catatan.js`, `api.js`, `storage.js`)
 - `localStorage` untuk persistensi data tugas, catatan, dan tema
 - `fetch` + `async/await` + `Promise.all` untuk integrasi API
 

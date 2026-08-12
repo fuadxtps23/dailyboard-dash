@@ -1,8 +1,10 @@
 // ============================================
 // MODUL TUGAS
 // Semua fungsi untuk mengelola daftar tugas.
-// Data tugas disimpan di localStorage.
+// Penyimpanan data memakai modul storage.js.
 // ============================================
+
+import { simpanTugas, bacaTugas } from "./storage.js";
 
 // Tugas awal yang muncul jika localStorage masih kosong
 const dataAwal = [
@@ -14,19 +16,14 @@ const dataAwal = [
 let daftarTugas = []; // semua tugas
 let filterAktif = "semua"; // filter yang sedang dipilih
 
-// Menyimpan daftar tugas ke localStorage
-export function simpanKeStorage() {
-  localStorage.setItem("daftarTugas", JSON.stringify(daftarTugas));
-}
-
 // Membaca daftar tugas dari localStorage saat aplikasi dibuka
 export function muatDariStorage() {
-  const data = localStorage.getItem("daftarTugas");
+  const data = bacaTugas();
   if (data) {
-    daftarTugas = JSON.parse(data);
+    daftarTugas = data;
   } else {
     daftarTugas = [...dataAwal]; // kalau kosong, pakai data awal
-    simpanKeStorage();
+    simpanTugas(daftarTugas);
   }
 }
 
@@ -46,14 +43,14 @@ export function validasiInput(nilai) {
 // Menambah tugas baru
 export function tambahTugas(nama) {
   daftarTugas.push({ id: Date.now(), nama, selesai: false });
-  simpanKeStorage();
+  simpanTugas(daftarTugas);
   renderTugas();
 }
 
 // Menghapus tugas berdasarkan id
 export function hapusTugas(id) {
   daftarTugas = daftarTugas.filter((t) => Number(t.id) !== Number(id));
-  simpanKeStorage();
+  simpanTugas(daftarTugas);
   renderTugas();
 }
 
@@ -62,7 +59,7 @@ export function editTugas(id, namaBaru) {
   daftarTugas = daftarTugas.map((t) =>
     Number(t.id) === Number(id) ? { ...t, nama: namaBaru } : t
   );
-  simpanKeStorage();
+  simpanTugas(daftarTugas);
   renderTugas();
 }
 
@@ -71,7 +68,7 @@ export function toggleSelesai(id) {
   daftarTugas = daftarTugas.map((t) =>
     Number(t.id) === Number(id) ? { ...t, selesai: !t.selesai } : t
   );
-  simpanKeStorage();
+  simpanTugas(daftarTugas);
   renderTugas();
 }
 
@@ -94,7 +91,7 @@ export function urutkanTugas(idPindah, idTujuan) {
   if (a === -1 || b === -1 || a === b) return;
   const item = daftarTugas.splice(a, 1)[0]; // ambil tugas yang dipindah
   daftarTugas.splice(b, 0, item); // letakkan di posisi tujuan
-  simpanKeStorage();
+  simpanTugas(daftarTugas);
   renderTugas();
 }
 
