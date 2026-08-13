@@ -2,9 +2,9 @@
 
 **DailyBoard — Dashboard Produktivitas Harian**
 
-Proyek akhir JavaScript satu semester (16 minggu) yang dibangun dengan JavaScript murni (vanilla JS) tanpa framework, dipadukan dengan HTML dan CSS.
+Proyek akhir JavaScript satu semester (16 minggu) yang dibangun dengan HTML dan CSS.
 
-Fitur utama: **daftar tugas (to-do list)**, **catatan cepat (notes)**, **kutipan harian**, **widget cuaca**, **dark mode**, **pencarian** dan **drag & drop**.
+Fitur nya: **daftar tugas (to-do list)**, **catatan cepat (notes)**, **kutipan harian**, **widget cuaca**, **dark mode**, **pencarian** dan **drag & drop**.
 
 ## Fitur
 
@@ -21,7 +21,7 @@ Fitur utama: **daftar tugas (to-do list)**, **catatan cepat (notes)**, **kutipan
 
 - **Daftar tugas**
   - Tambah tugas lewat input + tombol **Tambah Tugas**
-  - Klik satu kali nama tugas → tandai selesai (coret)
+  - Klik satu kali nama tugas → tandai selesai (strikethrough atau coret lah)
   - Klik dua kali nama tugas → edit nama
   - Tombol **Hapus** di setiap item
   - Filter: **Semua**, **Selesai**, **Belum Selesai**
@@ -38,22 +38,14 @@ Fitur utama: **daftar tugas (to-do list)**, **catatan cepat (notes)**, **kutipan
 
 ## Cara Pakai
 
-1. Karena proyek ini menggunakan **ES Modules** dan `fetch` ke API eksternal, jalankan lewat server lokal (tidak bisa langsung dengan membuka file `file://`):
-
-   ```bash
-   # di folder proyek
-   python3 -m http.server 8080
-   ```
-
-2. Buka `http://localhost:8080` di browser (versi online: GitHub Pages — lihat bagian Deployment).
-3. Tambahkan tugas/catatan, coba filter, edit, hapus, seret-urutan tugas, dan nyalakan dark mode.
+Tinggal buka saja github page repo ini
 
 ## Struktur File
 
 ```
 dailyboard/
 ├── index.html      # Halaman utama (header, main#app, footer, toggle tema)
-├── matdesign3.css  # Tema Material Design 3 (diunduh/disalin)
+├── matdesign3.css  # Tema Material Design 3 (referensi ajah)
 ├── style.css       # Penyesuaian layout, drag & drop, dark mode, responsivitas
 ├── script.js       # Entry point (membangun UI, event, Fase 5/6)
 ├── tugas.js        # Modul manajemen tugas (CRUD, filter, drag-drop)
@@ -63,28 +55,12 @@ dailyboard/
 └── README.md       # Dokumentasi ini
 ```
 
-## Teknologi
+## Teknologi (techonologia!)
 
-- HTML5 + CSS3 (Material Design 3 via `matdesign3.css`)
-- JavaScript murni/vanilla (ES Modules: `script.js`, `tugas.js`, `catatan.js`, `api.js`, `storage.js`)
-- `localStorage` untuk persistensi data tugas, catatan, dan tema
+- HTML + CSS
+- JavaScript murni (ES Modules: `script.js`, `tugas.js`, `catatan.js`, `api.js`, `storage.js`)
+- `localStorage` untuk ketetapan data tugas, catatan, dan tema
 - `fetch` + `async/await` + `Promise.all` untuk integrasi API
-
-## Test Manual (Fase 6, Minggu 15)
-
-Checklist pengujian:
-
-- [ ] Tambah tugas → muncul di daftar
-- [ ] Hapus tugas → hilang dari daftar
-- [ ] Edit tugas (klik dua kali) → nama berubah
-- [ ] Klik nama tugas → status selesai (coret)
-- [ ] Filter Semua/Selesai/Belum → daftar berubah sesuai status
-- [ ] Drag & drop → urutan berubah & tersimpan setelah reload
-- [ ] Pencarian mengetik → hasil tersaring real-time
-- [ ] Dark mode → berubah & tetap aktif setelah reload
-- [ ] Catatan: tambah, edit, hapus
-- [ ] Kutipan & cuaca tampil (atau pesan error jika gagal)
-- [ ] Tidak ada error di console browser
 
 ## Deployment
 
@@ -94,14 +70,12 @@ Checklist pengujian:
 2. Ubah nama branch menjadi `main` dan push:
 
    ```bash
+   git init
+   git add .
    git branch -m main
-   git remote add origin https://github.com/<username>/<nama-repo>.git
+   git remote add origin https://github.com/username/nama-repo.git
    git push -u origin main
    ```
 
 3. Aktifkan GitHub Pages: **Settings → Pages → Source → Deploy from a branch → main** (folder `/root`).
 4. Aplikasi bisa diakses di `https://<username>.github.io/<nama-repo>/`.
-
-### Netlify
-
-Drag-and-drop folder proyek ke https://app.netlify.com/drop.
