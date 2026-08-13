@@ -1,8 +1,4 @@
-// ============================================
-// MODUL CATATAN
-// Semua fungsi untuk mengelola catatan cepat.
-// Penyimpanan data memakai modul storage.js.
-// ============================================
+// modul catatan
 
 import { simpanCatatan, bacaCatatan } from "./storage.js";
 
@@ -45,6 +41,21 @@ export function hapusCatatan(id) {
   renderCatatan();
 }
 
+// Mengganti teks catatan dengan textarea untuk diedit
+function mulaiEditCatatan(catatan, teks) {
+  const ta = document.createElement("textarea");
+  ta.value = catatan.isi;
+  teks.replaceWith(ta);
+  ta.focus();
+  ta.addEventListener("blur", () => {
+    if (ta.value.trim() === "") return renderCatatan();
+    editCatatan(catatan.id, ta.value);
+  });
+  ta.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") ta.blur();
+  });
+}
+
 // Menampilkan semua catatan ke halaman
 export function renderCatatan() {
   const container = document.getElementById("daftar-catatan");
@@ -65,18 +76,18 @@ export function renderCatatan() {
     kecil.textContent = catatan.tanggal;
 
     // Klik dua kali = edit isi catatan
-    p.addEventListener("dblclick", () => {
-      const ta = document.createElement("textarea");
-      ta.value = catatan.isi;
-      p.replaceWith(ta);
-      ta.focus();
-      ta.addEventListener("blur", () => {
-        if (ta.value.trim() === "") return renderCatatan();
-        editCatatan(catatan.id, ta.value);
-      });
-      ta.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") ta.blur();
-      });
+    p.addEventListener("dblclick", () => mulaiEditCatatan(catatan, p));
+
+    // Kelompok tombol (edit & hapus)
+    const tombol = document.createElement("div");
+    tombol.className = "catatan-tombol";
+
+    // Tombol edit
+    const edit = document.createElement("button");
+    edit.textContent = "Edit";
+    edit.addEventListener("click", (e) => {
+      e.stopPropagation();
+      mulaiEditCatatan(catatan, p);
     });
 
     // Tombol hapus
@@ -87,7 +98,8 @@ export function renderCatatan() {
       hapusCatatan(catatan.id);
     });
 
-    div.append(p, kecil, hapus);
+    tombol.append(edit, hapus);
+    div.append(p, kecil, tombol);
     container.appendChild(div);
   });
 }

@@ -1,8 +1,4 @@
-// ============================================
-// MODUL TUGAS
-// Semua fungsi untuk mengelola daftar tugas.
-// Penyimpanan data memakai modul storage.js.
-// ============================================
+// modul tugas
 
 import { simpanTugas, bacaTugas } from "./storage.js";
 
@@ -22,12 +18,12 @@ export function muatDariStorage() {
   if (data) {
     daftarTugas = data;
   } else {
-    daftarTugas = [...dataAwal]; // kalau kosong, pakai data awal
+    daftarTugas = [...dataAwal]; // kalau kosong pakai data awal
     simpanTugas(daftarTugas);
   }
 }
 
-// Memeriksa input: tidak boleh kosong dan maksimal 100 huruf
+// Memeriksa input. tidak boleh kosong dan maksimal 100 huruf
 export function validasiInput(nilai) {
   if (nilai.trim() === "") {
     alert("Input tidak boleh kosong!");
@@ -84,7 +80,7 @@ export function cariTugas(kata) {
   return filterTugas().filter((t) => t.nama.toLowerCase().includes(kata));
 }
 
-// Mengubah urutan tugas setelah drag & drop
+// Mengubah urutan tugas setelah drag n drop
 export function urutkanTugas(idPindah, idTujuan) {
   const a = daftarTugas.findIndex((t) => Number(t.id) === Number(idPindah));
   const b = daftarTugas.findIndex((t) => Number(t.id) === Number(idTujuan));

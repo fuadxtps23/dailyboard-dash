@@ -108,7 +108,7 @@ body {
   background-color: var(--surface);
   overflow-x: hidden;
   font-family: var(--font);
-  font-size: 0.875rem;
+  font-size: 12px;
   line-height: 1.5rem;
   letter-spacing: 0.0313rem;
 }
@@ -257,6 +257,7 @@ button {
   font-family: inherit;
   outline: inherit;
   justify-content: center;
+  font-size: 5px;
 }
 .button,
 .chip,
@@ -4916,15 +4917,16 @@ h6 {
 }
 .h1,
 h1 {
-  font-size: 3.5625rem;
+  font-size: 30px;
+  font-weigth: 1000;
 }
 .h2,
 h2 {
-  font-size: 2.8125rem;
+  font-size: 24px;
 }
 .h3,
 h3 {
-  font-size: 2.25rem;
+  font-size: 25px;
 }
 .h4,
 h4 {

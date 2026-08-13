@@ -1,10 +1,7 @@
-// ============================================
-// MODUL API
-// Mengambil data dari internet memakai fetch.
-// ============================================
+// modul API buat cuaca
 
-// Kunci API OpenWeatherMap untuk widget cuaca
-const API_KUNCI = "353cc72ee917646ce84e30e9c54a356a";
+// API KEY OpenWeatherMap untuk widget cuaca
+const API_KUNCI = "353cc72ee917646ce84e30e9c54a356a"; // dont steal pls
 
 // Mengambil kutipan acak dari API dummyjson
 export async function ambilKutipan() {

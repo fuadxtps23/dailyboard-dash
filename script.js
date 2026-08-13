@@ -1,10 +1,6 @@
-// ============================================
-// script.js — MODUL UTAMA (entry point)
-// Membangun seluruh tampilan halaman lewat JS
-// dan menghubungkan semua modul.
-// ============================================
+// Ini teh adalah skrip utama.
 
-// Mengambil fungsi yang dibutuhkan dari modul lain
+// Ngambil fungsi dari modul modul yang udah dipisah karena ngikutin minggu 15
 import {
   muatDariStorage,
   tambahTugas,
@@ -24,7 +20,7 @@ import { simpanTema, bacaTema } from "./storage.js";
 
 const app = document.getElementById("app");
 
-// ===== FASE 1, Minggu 2: Membuat elemen halaman lewat JS =====
+// FASE 1, Minggu 2: Bikin elemen WEB pake JS, gelo hulu aing :v
 
 // Teks status loading
 const status = document.createElement("p");
@@ -37,7 +33,7 @@ const judul = document.createElement("h2");
 judul.textContent = "Selamat datang di DailyBoard!";
 app.appendChild(judul);
 
-// 3 section utama: Tugas, Catatan, Cuaca
+// 3 bagian utama: Tugas, Catatan, Cuaca
 const tugasSection = document.createElement("section");
 tugasSection.id = "tugas";
 tugasSection.className = "surface-container-low large-round large-padding";
@@ -52,7 +48,7 @@ cuacaSection.className = "surface-container-low large-round large-padding";
 
 app.append(tugasSection, catatanSection, cuacaSection);
 
-// ===== FASE 1, Minggu 3: Bagian input & tombol tambah tugas =====
+// FASE 1, Minggu 3: Bagian input dan tombol tambah tugas
 const titleTugas = document.createElement("h3");
 titleTugas.textContent = "Daftar Tugas";
 tugasSection.appendChild(titleTugas);
@@ -66,14 +62,14 @@ tombolTambah.textContent = "Tambah Tugas";
 
 tugasSection.append(inputTugas, tombolTambah);
 
-// Saat tombol Tambah diklik: cek input, lalu tambah tugas
+// Pada saat tombol Tambah diklik, cek input, terus tambah tugas
 tombolTambah.addEventListener("click", () => {
   if (!validasiInput(inputTugas.value)) return;
   tambahTugas(inputTugas.value);
   inputTugas.value = ""; // kosongkan input lagi
 });
 
-// ===== FASE 5, Minggu 14: Pencarian tugas =====
+// FASE 5, Minggu 14: Pencarian tugas
 const inputCari = document.createElement("input");
 inputCari.type = "search";
 inputCari.id = "cari-tugas";
@@ -97,7 +93,7 @@ inputCari.addEventListener("input", (e) => {
   cari(e.target.value.trim().toLowerCase());
 });
 
-// ===== FASE 2, Minggu 6: Tombol filter =====
+// FASE 2, Minggu 6: Tombol filter
 const filterContainer = document.createElement("div");
 filterContainer.id = "filter-container";
 
@@ -141,7 +137,7 @@ btnBelum.addEventListener("click", () => {
   tampilFilterAktif("belum");
 });
 
-// ===== FASE 5, Minggu 13: Drag & Drop untuk urutan tugas =====
+// FASE 5, Minggu 13: Drag n Drop untuk urutan tugas
 // Saat drag lewat item lain, tandai item itu sebagai tujuan
 daftar_tugas.addEventListener("dragover", (e) => {
   e.preventDefault();
@@ -153,7 +149,7 @@ daftar_tugas.addEventListener("dragover", (e) => {
   item.classList.add("tujuan-drop");
 });
 
-// Saat item dijatuhkan, ubah urutannya
+// Saat item dijatuhkan atau di drop, ubah urutannya
 daftar_tugas.addEventListener("drop", (e) => {
   e.preventDefault();
   const id = e.dataTransfer.getData("text/plain");
@@ -164,7 +160,7 @@ daftar_tugas.addEventListener("drop", (e) => {
   if (item) urutkanTugas(id, item.dataset.id);
 });
 
-// ===== FASE 3, Minggu 8: Bagian catatan cepat =====
+// FASE 3, Minggu 8: Bagian catatan cepat
 const titleCatatan = document.createElement("h3");
 titleCatatan.textContent = "Catatan Cepat";
 catatanSection.appendChild(titleCatatan);
@@ -187,7 +183,7 @@ daftarCatatanContainer.id = "daftar-catatan";
 
 catatanSection.append(formCatatan, daftarCatatanContainer);
 
-// Saat form catatan dikirim: cek input, lalu tambah catatan
+// Saat form catatan dikirim, cek input, lalu tambah catatan
 formCatatan.addEventListener("submit", (e) => {
   e.preventDefault();
   if (!validasiInput(inputCatatan.value)) return;
@@ -195,7 +191,7 @@ formCatatan.addEventListener("submit", (e) => {
   inputCatatan.value = "";
 });
 
-// ===== FASE 4, Minggu 10: Widget kutipan hari ini =====
+// FASE 4, Minggu 10: Widget kutipan hari ini
 const kutipanContainer = document.createElement("div");
 kutipanContainer.id = "kutipan-container";
 kutipanContainer.className = "surface-container-low large-round large-padding";
@@ -210,7 +206,7 @@ textKutipan.textContent = "Sedang mengambil kutipan...";
 kutipanContainer.append(titleKutipan, textKutipan);
 app.insertBefore(kutipanContainer, tugasSection);
 
-// ===== FASE 4, Minggu 11: Widget cuaca =====
+// FASE 4, Minggu 11: Widget cuaca
 const titleCuaca = document.createElement("h3");
 titleCuaca.textContent = "Informasi Cuaca";
 
@@ -232,7 +228,7 @@ btnCariCuaca.addEventListener("click", () => {
   if (kota !== "") ambilCuaca(kota);
 });
 
-// ===== FASE 5, Minggu 14: Dark mode =====
+// FASE 5, Minggu 14: Dark mode
 function terapkanTema(tema) {
   if (tema === "gelap") {
     document.body.classList.add("dark");
@@ -258,7 +254,7 @@ document.getElementById("toggle-tema").addEventListener("click", () => {
   }
 });
 
-// ===== Menjalankan aplikasi saat halaman selesai dimuat =====
+// Menjalankan aplikasi saat halaman selesai dimuat
 window.addEventListener("DOMContentLoaded", () => {
   muatDariStorage(); // baca tugas dari localStorage
   muatCatatanDariStorage(); // baca catatan dari localStorage

@@ -9,9 +9,9 @@
 main#app {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 5px;
   align-content: start;
-  padding: 1rem;
+  padding: 5px;
   width: 100%;
 }
 
@@ -141,6 +141,16 @@ footer {
   color: var(--on-surface-variant, #49454e);
 }
 
+.catatan-item .catatan-tombol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.catatan-item .catatan-tombol > button {
+  margin-block-start: 0;
+}
+
 /* ===== Kutipan (Fase 4, Minggu 10) ===== */
 #kutipan-harian {
   margin: 0;
@@ -157,7 +167,8 @@ footer {
   }
 
   header h1 {
-    font-size: 1.25rem;
+    /*font-size:7px;*/
+    font-weight: bold;
   }
 }
 
@@ -176,6 +187,7 @@ footer {
   main#app > div#kutipan-container,
   main#app > p#status {
     grid-column: 1 / -1;
+
   }
 
   #daftar-catatan {

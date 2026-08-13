@@ -1,8 +1,4 @@
-// ============================================
-// MODUL STORAGE
-// Semua urusan localStorage (simpan & baca data)
-// dipusatkan di satu file ini.
-// ============================================
+// modul storage
 
 // Simpan data apa pun ke localStorage (otomatis jadi teks JSON)
 function simpanData(kunci, nilai) {
