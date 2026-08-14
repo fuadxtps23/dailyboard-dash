@@ -62,6 +62,22 @@ dailyboard/
 - `localStorage` untuk ketetapan data tugas, catatan, dan tema
 - `fetch` + `async/await` + `Promise.all` untuk integrasi API
 
+## Ceklist Pengujian Manual
+
+- [x] Toggle dark mode
+- [x] Kutipan harian
+- [x] Masukan daftar tugas
+- [x] Cari tugas
+- [x] Filter tugas (semua, selesai, belum selesai)
+- [x] Drag n Drop tugas (ganti urutan)
+- [x] Hapus tugas
+- [x] Menandai tugas jika selesai dengan dipencet teks nya
+- [x] Tambah catatan cepat
+- [x] Edit catatan
+- [x] Hapus catatan
+- [x] Ambil Informasi cuaca dengan API OpenWeatherMap
+
+
 ## Deployment
 
 ### GitHub Pages
