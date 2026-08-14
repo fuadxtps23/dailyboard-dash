@@ -1,7 +1,7 @@
 // modul API buat cuaca
 
 // API KEY OpenWeatherMap untuk widget cuaca
-const API_KUNCI = "APIKEY_OPENWEATHER"; // dont steal pls
+const API_KUNCI = "APIKEY_OPENWEATHER";
 
 // Mengambil kutipan acak dari API dummyjson
 export async function ambilKutipan() {
