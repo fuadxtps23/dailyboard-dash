@@ -80,6 +80,26 @@ export function cariTugas(kata) {
   return filterTugas().filter((t) => t.nama.toLowerCase().includes(kata));
 }
 
+// Penahan aksi klik tunggal, dibatalkan kalau ternyata klik dua kali
+let timerKlik = null;
+
+// Mengganti teks tugas dengan input untuk diedit
+function mulaiEditTugas(tugas, teks) {
+  clearTimeout(timerKlik);
+  const inp = document.createElement("input");
+  inp.type = "text";
+  inp.value = tugas.nama;
+  teks.replaceWith(inp);
+  inp.focus();
+  inp.addEventListener("blur", () => {
+    if (!validasiInput(inp.value)) return renderTugas();
+    editTugas(tugas.id, inp.value);
+  });
+  inp.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") inp.blur();
+  });
+}
+
 // Mengubah urutan tugas setelah drag n drop
 export function urutkanTugas(idPindah, idTujuan) {
   const a = daftarTugas.findIndex((t) => Number(t.id) === Number(idPindah));
@@ -115,23 +135,28 @@ function tampilkan(listTugas) {
     span.textContent = tugas.nama;
     span.style.textDecoration = tugas.selesai ? "line-through" : "none";
 
-    // Klik sekali = tandai selesai
-    span.addEventListener("click", () => toggleSelesai(tugas.id));
+    // Klik tunggal: tunggu sebentar dulu, baru tandai selesai
+    span.addEventListener("click", () => {
+      clearTimeout(timerKlik);
+      timerKlik = setTimeout(() => toggleSelesai(tugas.id), 250);
+    });
 
-    // Klik dua kali = edit nama tugas
+    // Klik dua kali = batalkan klik tunggal, lalu edit nama tugas
     span.addEventListener("dblclick", () => {
-      const inp = document.createElement("input");
-      inp.type = "text";
-      inp.value = tugas.nama;
-      span.replaceWith(inp);
-      inp.focus();
-      inp.addEventListener("blur", () => {
-        if (!validasiInput(inp.value)) return renderTugas();
-        editTugas(tugas.id, inp.value);
-      });
-      inp.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") inp.blur();
-      });
+      clearTimeout(timerKlik);
+      mulaiEditTugas(tugas, span);
+    });
+
+    // Kelompok tombol (edit & hapus)
+    const tombol = document.createElement("div");
+    tombol.className = "tugas-tombol";
+
+    // Tombol edit
+    const edit = document.createElement("button");
+    edit.textContent = "Edit";
+    edit.addEventListener("click", (e) => {
+      e.stopPropagation();
+      mulaiEditTugas(tugas, span);
     });
 
     // Tombol hapus
@@ -142,6 +167,8 @@ function tampilkan(listTugas) {
       hapusTugas(tugas.id);
     });
 
+    tombol.append(edit, hapus);
+
     // Efek saat item sedang di-drag
     li.addEventListener("dragstart", (e) => {
       e.dataTransfer.setData("text/plain", String(tugas.id));
@@ -149,7 +176,7 @@ function tampilkan(listTugas) {
     });
     li.addEventListener("dragend", () => li.classList.remove("menyeret"));
 
-    li.append(grip, span, hapus);
+    li.append(grip, span, tombol);
     list.appendChild(li);
   });
 }

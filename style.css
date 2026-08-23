@@ -105,6 +105,15 @@ main#app h3 {
   font-size: 0.95rem;
 }
 
+/* Judul bagian (Daftar Tugas, Catatan Cepat, Informasi Cuaca):
+   di tengah, sedikit lebih besar, tebal, dan ada jarak ke bawah */
+main#app > section > h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-block-end: 0.6rem;
+}
+
 main#app button,
 header button {
   --_size: 1.9rem;
@@ -174,6 +183,28 @@ header button {
 .tugas-item .max {
   flex: 1;
   min-width: 0;
+}
+
+/* Tombol edit & hapus di tiap item tugas */
+.tugas-item .tugas-tombol {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.tugas-item .tugas-tombol > button {
+  margin-block-start: 0;
+}
+
+/* Input saat mengedit nama tugas memenuhi baris */
+.tugas-item input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.85rem;
+  border: 0.0625rem solid var(--outline-variant, rgba(0, 0, 0, 0.12));
+  border-radius: 999px;
+  background-color: var(--surface-container-highest, #e6e1e6);
+  color: var(--on-surface, #1c1b1e);
 }
 
 .list > li.tugas-item.selesai {
