@@ -107,6 +107,7 @@ body {
   color: var(--on-surface);
   background-color: var(--surface);
   overflow-x: hidden;
+  overflow-y: hidden;
   font-family: var(--font);
   font-size: 12px;
   line-height: 1.5rem;

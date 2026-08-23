@@ -15,7 +15,7 @@ import {
   tambahCatatan,
   renderCatatan,
 } from "./catatan.js";
-import { muatSemuaWidget, ambilCuaca } from "./api.js";
+import { muatSemuaWidget, ambilCuaca, ambilKutipan } from "./api.js";
 import { simpanTema, bacaTema } from "./storage.js";
 
 const app = document.getElementById("app");
@@ -36,15 +36,15 @@ app.appendChild(judul);
 // 3 bagian utama: Tugas, Catatan, Cuaca
 const tugasSection = document.createElement("section");
 tugasSection.id = "tugas";
-tugasSection.className = "surface-container-low large-round large-padding";
+tugasSection.className = "surface-container-low";
 
 const catatanSection = document.createElement("section");
 catatanSection.id = "catatan";
-catatanSection.className = "surface-container-low large-round large-padding";
+catatanSection.className = "surface-container-low";
 
 const cuacaSection = document.createElement("section");
 cuacaSection.id = "cuaca";
-cuacaSection.className = "surface-container-low large-round large-padding";
+cuacaSection.className = "surface-container-low";
 
 app.append(tugasSection, catatanSection, cuacaSection);
 
@@ -194,7 +194,7 @@ formCatatan.addEventListener("submit", (e) => {
 // FASE 4, Minggu 10: Widget kutipan hari ini
 const kutipanContainer = document.createElement("div");
 kutipanContainer.id = "kutipan-container";
-kutipanContainer.className = "surface-container-low large-round large-padding";
+kutipanContainer.className = "surface-container-low";
 
 const titleKutipan = document.createElement("h3");
 titleKutipan.textContent = "Kutipan Hari Ini";
@@ -203,7 +203,21 @@ const textKutipan = document.createElement("blockquote");
 textKutipan.id = "kutipan-harian";
 textKutipan.textContent = "Sedang mengambil kutipan...";
 
-kutipanContainer.append(titleKutipan, textKutipan);
+// Tombol Segarkan buat mengambil ulang kutipan
+const btnSegarkan = document.createElement("button");
+btnSegarkan.id = "btn-segarkan";
+btnSegarkan.textContent = "Segarkan";
+btnSegarkan.addEventListener("click", () => {
+  textKutipan.textContent = "Sedang mengambil kutipan...";
+  ambilKutipan();
+});
+
+// Baris judul + tombol segarkan
+const barisKutipan = document.createElement("div");
+barisKutipan.id = "baris-kutipan";
+barisKutipan.append(titleKutipan, btnSegarkan);
+
+kutipanContainer.append(barisKutipan, textKutipan);
 app.insertBefore(kutipanContainer, tugasSection);
 
 // FASE 4, Minggu 11: Widget cuaca

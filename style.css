@@ -1,51 +1,123 @@
 /*
   DailyBoard — style khusus proyek
-  Bawaan/contekan desain berasal dari matdesign3.css (Material Design 3).
-  File ini hanya berisi penyesuaian tata letak, dark mode, drag & drop,
-  dan responsivitas (Fase 5 & 6).
+  Desain bawaan dari matdesign3.css (Material Design 3).
+  File ini mengatur: layout satu layar (halaman tidak scroll,
+  scroll hanya di dalam kontainer), ukuran kompak, dark mode,
+  drag & drop, dan responsivitas (Fase 5 & 6).
 */
 
-/* ===== Layout utama (Fase 1) ===== */
-main#app {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 5px;
-  align-content: start;
-  padding: 5px;
-  width: 100%;
+/* ===== Kunci layar: halaman tidak boleh di-scroll ===== */
+html {
+  height: 100%;
 }
 
+body {
+  height: calc(100dvh - 30px); /* tinggi layar dikurangi margin body 15px atas+bawah */
+  margin: 15px;
+  overflow: hidden;
+}
+
+/* ===== Layout utama (Fase 1): grid satu layar ===== */
+main#app {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  grid-template-areas:
+    "status status status"
+    "judul judul judul"
+    "kutipan kutipan kutipan"
+    "tugas catatan cuaca";
+  gap: 5px;
+  padding: 5px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Baris atas: status loading + judul di tengah */
+main#app > p#status {
+  grid-area: status;
+  text-align: center;
+}
+
+main#app > h2 {
+  grid-area: judul;
+  text-align: center;
+}
+
+main#app > div#kutipan-container {
+  grid-area: kutipan;
+}
+
+main#app > section#tugas {
+  grid-area: tugas;
+}
+
+main#app > section#catatan {
+  grid-area: catatan;
+}
+
+main#app > section#cuaca {
+  grid-area: cuaca;
+}
+
+/* Kontainer widget & section: kompak + scroll di dalam saja */
+main#app > section,
+main#app > div#kutipan-container {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: 1rem;
+  padding: 0.6rem 0.75rem;
+}
+
+/* ===== Header & footer ramping ===== */
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 0.5rem 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
   border-bottom: 0.0625rem solid var(--outline-variant, rgba(0, 0, 0, 0.12));
   background-color: var(--surface, #fdf8fd);
 }
 
+header h1 {
+  font-size: 1.05rem;
+}
+
 footer {
-  padding: 1rem;
+  padding: 0.15rem;
   text-align: center;
+  font-size: 0.7rem;
   color: var(--on-surface-variant, #49454e);
 }
 
+/* ===== Ukuran kompak untuk semua elemen di aplikasi ===== */
 #status {
   color: var(--on-surface-variant, #49454e);
   font-style: italic;
+  font-size: 0.75rem;
 }
 
-/* ===== Daftar tugas & form (Fase 2 & 3) ===== */
+main#app h3 {
+  font-size: 0.95rem;
+}
+
+main#app button,
+header button {
+  --_size: 1.9rem;
+  --_padding: 0.65rem;
+  font-size: 0.8rem;
+}
+
 #tugas input[type="text"],
 #tugas input[type="search"],
-#catatan textarea,
 #cuaca input[type="text"] {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.85rem;
   border: 0.0625rem solid var(--outline-variant, rgba(0, 0, 0, 0.12));
   border-radius: 999px;
   background-color: var(--surface-container-highest, #e6e1e6);
@@ -53,30 +125,36 @@ footer {
   box-sizing: border-box;
 }
 
-#tugas textarea {
-  border-radius: 1rem;
+#cari-tugas {
+  margin-block: 0.35rem;
+}
+
+#form-catatan textarea,
+.catatan-item textarea {
+  width: 100%;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.85rem;
+  border: 0.0625rem solid var(--outline-variant, rgba(0, 0, 0, 0.12));
+  border-radius: 0.9rem;
+  background-color: var(--surface-container-highest, #e6e1e6);
+  color: var(--on-surface, #1c1b1e);
+  box-sizing: border-box;
+  min-height: 3.2rem;
   resize: vertical;
-  min-height: 6rem;
 }
 
 #tugas > button,
 #form-catatan > button,
-#cuaca > button,
-#filter-container > button,
-.catatan-item > button {
-  margin-block-start: 0.5rem;
-  margin-block-end: 0.5rem;
+#cuaca > button {
+  margin-block-start: 0.35rem;
 }
 
-#kotak-cari {
-  margin-block: 0.75rem;
-}
-
+/* ===== Tombol filter (Fase 2, Minggu 6) ===== */
 #filter-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-block: 0.75rem;
+  gap: 0.35rem;
+  margin-block: 0.4rem;
 }
 
 #filter-container > button.active {
@@ -84,11 +162,13 @@ footer {
   color: var(--on-secondary-container, #1e192b);
 }
 
-/* Item tugas: bungkus teks panjang & beri ruang tombol (Minggu 5, 13) */
+/* Item tugas: ramping, teks panjang dibungkus (Minggu 5, 13) */
 .list > li.tugas-item {
   white-space: normal;
   word-break: break-word;
-  gap: 0.75rem;
+  gap: 0.5rem;
+  min-block-size: 2.2rem;
+  padding: 0.25rem 0.6rem;
 }
 
 .tugas-item .max {
@@ -119,15 +199,15 @@ footer {
 #daftar-catatan {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.75rem;
-  margin-block-start: 1rem;
+  gap: 0.4rem;
+  margin-block-start: 0.4rem;
 }
 
 .catatan-item {
   display: grid;
-  gap: 0.25rem;
-  padding: 0.75rem 1rem;
-  border-radius: 1rem;
+  gap: 0.15rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.8rem;
   border: 0.0625rem solid var(--outline-variant, rgba(0, 0, 0, 0.12));
   background-color: var(--surface-container, #f2ecf1);
 }
@@ -135,68 +215,68 @@ footer {
 .catatan-item p {
   margin: 0;
   word-break: break-word;
+  font-size: 0.85rem;
 }
 
 .catatan-item small {
   color: var(--on-surface-variant, #49454e);
+  font-size: 0.65rem;
 }
 
 .catatan-item .catatan-tombol {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .catatan-item .catatan-tombol > button {
   margin-block-start: 0;
 }
 
-/* ===== Kutipan (Fase 4, Minggu 10) ===== */
+/* ===== Kutipan (Fase 4, Minggu 10) + tombol Segarkan ===== */
+#baris-kutipan {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+#btn-segarkan {
+  margin-block-start: 0;
+}
+
 #kutipan-harian {
   margin: 0;
-  padding-inline-start: 1rem;
-  border-inline-start: 0.25rem solid var(--primary, #6750a4);
+  padding-inline-start: 0.6rem;
+  border-inline-start: 0.2rem solid var(--primary, #6750a4);
+  font-size: 0.85rem;
   color: var(--on-surface-variant, #49454e);
 }
 
-/* ===== Responsivitas mobile (Fase 6, Minggu 16) ===== */
-@media (max-width: 599px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
+/* ===== Layar sempit (HP/tablet): tetap satu layar,
+       tiap widget dapat porsi tinggi yang sama dan
+       scroll di dalam kotaknya masing-masing ===== */
+@media (max-width: 899px) {
   header h1 {
     /*font-size:7px;*/
     font-weight: bold;
   }
-}
 
-@media (min-width: 700px) {
   main#app {
-    grid-template-columns: 1fr 1fr;
-    max-width: 75rem;
-    margin: 0 auto;
-  }
-
-  main#app > .surface-container-low {
-    align-self: start;
-  }
-
-  main#app > section#cuaca,
-  main#app > div#kutipan-container,
-  main#app > p#status {
-    grid-column: 1 / -1;
-
-  }
-
-  #daftar-catatan {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (min-width: 1100px) {
-  #daftar-catatan {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+    grid-template-rows:
+      auto
+      auto
+      auto
+      minmax(0, 1fr)
+      minmax(0, 1fr)
+      minmax(0, 1fr);
+    grid-template-areas:
+      "status"
+      "judul"
+      "kutipan"
+      "tugas"
+      "catatan"
+      "cuaca";
   }
 }
