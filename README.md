@@ -71,6 +71,7 @@ dailyboard/
 - [x] Filter tugas (semua, selesai, belum selesai)
 - [x] Drag n Drop tugas (ganti urutan)
 - [x] Hapus tugas
+- [x] Edit tugas (tombol dan double click)
 - [x] Menandai tugas jika selesai dengan dipencet teks nya
 - [x] Tambah catatan cepat
 - [x] Edit catatan
